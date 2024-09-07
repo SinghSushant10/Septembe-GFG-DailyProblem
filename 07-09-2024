@@ -1,0 +1,29 @@
+#Given a positive integer n. You have to find nth natural number after removing all the numbers containing the digit 9.
+
+
+class Solution {
+    long findNth(long n) {
+        // code here
+          
+        long naturalNum = 0;
+        // Multiplier to construct the base-9 number
+        long multiplier = 1;
+
+        // Convert from base 10 to base 9
+        while (n > 0) {
+            // Take remainder when dividing by 9 to get the base-9 digit
+            long remainder = n % 9;
+            // Update the result by placing the remainder in the correct position
+             naturalNum += remainder * multiplier;
+            // Move to the next position (multiply by 10 in decimal system)
+            multiplier *= 10;
+            // Divide n by 9 to continue the conversion
+            n /= 9;
+        }
+
+        return naturalNum;
+        
+            
+        
+    }
+}
