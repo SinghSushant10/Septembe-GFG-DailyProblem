@@ -1,0 +1,14 @@
+#Middle of a Linked List
+class Solution {
+     int getMiddle(Node head) {
+        // Your code here.
+          // Initialize two pointers: slow and fast
+        Node slow = head, fast = head.next;
+        // Traverse while fast and fast.next are not null
+        while(fast!=null && fast.next!=null){
+            slow=slow.next; // Move slow pointer one step
+            fast=fast.next.next; // Move fast pointer two steps
+        }
+        return fast!=null?slow.next.data:slow.data;   // Return middle element's data
+    }
+}
