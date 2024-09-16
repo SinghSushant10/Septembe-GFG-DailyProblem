@@ -1,0 +1,29 @@
+#Longest valid Parentheses
+
+class Solution {
+    static int maxLength(String S) {
+        int maxLen = 0;  // To store the maximum length of valid parentheses
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);  // Initialize stack with -1 to handle the base case
+        
+        for (int i = 0; i < S.length(); i++) {
+            if (S.charAt(i) == '(') {
+                // Push the index of the '(' onto the stack
+                stack.push(i);
+            } else {
+                // Pop the top of the stack when encountering ')'
+                stack.pop();
+                
+                if (stack.isEmpty()) {
+                    // If the stack is empty, push the current index as the base
+                    stack.push(i);
+                } else {
+                    // Calculate the length of the valid parentheses
+                    maxLen = Math.max(maxLen, i - stack.peek());
+                }
+            }
+        }
+        
+        return maxLen;
+    }
+}
