@@ -1,0 +1,36 @@
+#Reverse the Words
+class Solution {
+    // Function to reverse words in a given string.
+    String reverseWords(String str) {
+        // code here
+        StringBuilder res = new StringBuilder();
+        //start from the last character 
+        int startIndex = str.length()-1;
+        while (startIndex>=0){
+            //skip dots '.' ... used as separators
+            while ( startIndex>=0 && str.charAt(startIndex)=='.'){
+                startIndex--;
+            }
+            //if index out of bound then we break the loop 
+            if(startIndex<0){
+                break;
+            }
+        
+            int endIndex = startIndex;
+    // Move startIndex backwards to find the beginning of the word
+            while ( startIndex>=0 && str.charAt(startIndex)!='.'){
+                startIndex--;
+            }
+            // word
+            if(res.length()==0){
+            // First word, so no need to add a dot.
+                res.append(str.substring(startIndex+1,endIndex+1));
+            } else {
+        // For subsequent words, prepend a dot before the word.
+                res.append(".");
+                res.append(str.substring(startIndex+1,endIndex+1));
+            }
+        }
+        return res.toString();
+    }
+}
