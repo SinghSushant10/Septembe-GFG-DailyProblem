@@ -1,30 +1,39 @@
 #Clone a linked list with next and random pointer
 class Solution {
     // Function to clone a linked list with next and random pointer.
-        Node copyList(Node head) {
+    Node copyList(Node head) {
         // your code here
-        Node temp = head;
+        Node temp = head;// creating the clone of each node
         while(temp!=null){
-            Node cloneNode = new Node(temp.data);
-            cloneNode.next=temp.next;
-            temp.next=cloneNode;
-            temp=cloneNode.next;
+            Node clone = new Node(temp.data);
+            clone.next = temp.next;
+            temp.next= clone;
+            temp = clone.next;
         }
-        temp=head;
+        
+        
+        temp = head; // traversing the updated ll (i.e original and copied with random cordinates)
         while(temp!=null){
             if(temp.random!=null){
-                temp.next.random=temp.random.next;
+                temp.next.random = temp.random.next;
             }
-            temp=temp.next.next;
+            temp = temp.next.next;
+            
         }
-        Node clone = new Node(0), ans = clone;
-        temp=head;
+        
+        temp = head; // copying the nodes in ans 
+        Node copy = new Node(0);
+        Node ans = copy;
         while(temp!=null){
-            clone.next=temp.next;
-            clone=clone.next;
-            temp.next=clone.next;
-            temp=temp.next;
+            
+            copy.next =temp.next;
+            copy = copy.next;
+            temp.next = copy.next;
+            temp = temp.next;
         }
+        
         return ans.next;
+        
     }
+} }
 }
