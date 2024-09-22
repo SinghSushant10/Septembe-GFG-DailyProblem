@@ -1,0 +1,26 @@
+# Longest Prefix Suffix 
+class Solution {
+    int lps(String str) {
+        // code here
+        int i=1,j=0,n=str.length();
+        int storeLength[] = new int[n];
+        while(i<n){
+    //If characters match, we extend the length of the current prefix-suffix match
+            if(str.charAt(i)==str.charAt(j)){
+                storeLength[i++]=++j;
+            }
+            else{
+   //If there's a mismatch and j > 0, fall back to the previous possible prefix-suffix length
+                if(j>0){
+                    j=storeLength[j-1];
+                }
+    //If j is 0, no valid prefix-suffix found yet, so just move to the next character
+                else {
+                    i++;
+                }
+            }
+        }
+        return storeLength[n-1];
+    }
+        
+}
