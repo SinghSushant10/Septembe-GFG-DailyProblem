@@ -1,0 +1,30 @@
+#Missing And Repeating
+
+class Solve {
+    int[] findTwoElement(int arr[]) {
+        // code here
+        int n = arr.length;
+        int ans[] = new int[2];
+        //to find the duplicates numbers 
+        for(int i=0;i<n;i++){
+            int element = Math.abs(arr[i]);
+        //If the element at the index corresponding to the value (element-1) is negative,
+        // it means we have already visited this index, and thus the element is repeating
+            if(arr[element-1]<0){
+                ans[0]=element;
+            }
+        //mark this index as visited by making it negative
+            else {
+                arr[element-1]*=-1;
+            }
+        }
+        for(int i=0;i<n;i++){
+        //element is still positive, it means the corresponding number (i + 1) is missing
+            if(arr[i]>0){
+                ans[1]=i+1;
+            }
+        }
+        return ans;
+    }
+
+}
