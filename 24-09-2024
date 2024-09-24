@@ -1,0 +1,56 @@
+# Smallest window in a string containing all the characters of another string
+
+class Solution
+{
+    
+    public static String smallestWindow(String s, String p)
+    {
+        
+        if(p.length() > s.length()) return "-1";
+        
+       
+        int forS[] = new int[26]; // Frequency array for characters in string s
+        int forP[] = new int[26]; // Frequency array for characters in string p
+
+         
+        int c = 0, c2 = 0, n = s.length(), m = p.length(), j = 0, start = -1, end = -1, len = Integer.MAX_VALUE;
+
+      
+        for(int i = 0; i < m; i++) {
+            char x = p.charAt(i);
+            forP[x - 'a']++;  
+            if(forP[x - 'a'] == 1) c++;  
+            
+        }
+
+        // Sliding window approach to find the smallest window in s
+        for(int i = 0; i < n; i++) {
+            char x = s.charAt(i);
+            forS[x - 'a']++;  // Increase the count for the character in the window of s
+
+            // If the current character's count matches that in p, increment the matched distinct character count c2
+            if(forS[x - 'a'] == forP[x - 'a']) c2++;  
+
+            // If all distinct characters from p are matched
+            if(c2 == c) {
+                // Try to minimize the window by moving j (left pointer) to the right
+                while(forS[s.charAt(j) - 'a'] > forP[s.charAt(j) - 'a']) {
+                    forS[s.charAt(j++) - 'a']--;  // Reduce the frequency of the leftmost character in the window
+                }
+
+                // If the current window is smaller than the previous smallest window, update the start, end, and length
+                if(len > i - j + 1) {
+                    start = j;
+                    end = i;
+                    len = i - j + 1;
+                }
+            }
+        }
+
+        // If no valid window was found, return "-1"
+        if(start == -1) return "-1";
+
+        // Return the smallest window substring
+        return s.substring(start, end + 1);
+    }
+}
