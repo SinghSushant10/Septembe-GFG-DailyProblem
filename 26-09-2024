@@ -1,0 +1,30 @@
+# Roof Top
+Difficulty: EasyAccuracy: 40.48%Submissions: 74K+Points: 2
+You are given the heights of consecutive buildings. You can move from the roof of a building to the roof of the next adjacent building. You need to find the maximum number of consecutive steps you can put forward such that you gain an increase in altitude with each step.
+
+Examples:
+
+Input: arr[] = [1, 2, 2, 3, 2]
+Output: 1
+Explanation: 1, 2, or 2, 3 are the only consecutive buildings with increasing heights thus maximum number of consecutive steps with an increase in gain in altitude would be 1 in both cases.
+
+class Solution {
+    // Function to find maximum number of consecutive steps
+    // to gain an increase in altitude with each step.
+    public int maxStep(int arr[]) {
+        // Your code here
+      int maxStep = 0 ; 
+      int step =0;
+      for(int i = 0 ; i<arr.length-1; i++){
+          if(arr[i+1]>arr[i]){
+              step++;
+          }
+          else{
+              maxStep=Math.max(maxStep,step);
+              step=0;
+          }
+      }
+         maxStep=Math.max(maxStep,step);
+          return maxStep;
+    }
+}
