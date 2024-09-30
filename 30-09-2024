@@ -1,0 +1,44 @@
+# Merge two BST 's
+Given two BSTs, return elements of merged BSTs in sorted form.
+
+class Solution {
+
+    // Helper function to perform an inorder traversal of a binary tree (BST).
+    void help(Node root, List<Integer> temp) {
+      // if the current node is null, return from the function
+        if (root == null) return;
+
+        help(root.left, temp); //recursively call leftsubtree
+        temp.add(root.data); // Add the current node's data to the list
+        help(root.right, temp); //recursively call rightsubtree
+    }
+    // Function to return a list of integers denoting the node
+    // values of both the BST in a sorted order.
+    public List<Integer> merge(Node root1, Node root2) {
+        // Create three lists: 
+        List<Integer> first = new ArrayList<>();
+        List<Integer> second = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        
+        help(root1, first); // inorder traversal for first BST and store in first list
+        help(root2, second); // inorder traversal for second BST and store in second list
+
+        // Merge the two sorted lists 'first' and 'second' using a two-pointer technique
+        int i = 0, j = 0;
+        while (i < first.size() && j < second.size()) {
+            // Compare elements from both lists and add the smaller one to 'ans'
+            if (first.get(i) <= second.get(j)) {
+                ans.add(first.get(i++)); // Increment pointer 'i' if element from 'first' was added
+            } else {
+                ans.add(second.get(j++)); // Increment pointer 'j' if element from 'second' was added
+            }
+        }
+
+        // Add any remaining elements from the 'first' 'second' list, if any
+        while (i < first.size()) ans.add(first.get(i++));
+
+        while (j < second.size()) ans.add(second.get(j++));
+
+        return ans;
+    }
+}
